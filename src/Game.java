@@ -33,10 +33,8 @@ public class Game {
         }
     }
 
-    public void runMenu() throws NoSuchAlgorithmException, InvalidKeyException {
+    public void runMenu() {
         while (true) {
-            runKeyGeneration();
-            System.out.println("HMAC: " + getHmac());
             String ch = menu();
             int moveNum;
             switch (ch) {
@@ -46,7 +44,7 @@ public class Game {
                     System.out.println("\nRules:");
                     TableGenerator tableGenerator = new TableGenerator();
                     tableGenerator.showTable(getMoves());
-                    System.out.println("");
+                    System.out.println();
                     continue;
                 default:
                     try {
@@ -58,7 +56,7 @@ public class Game {
                         System.out.println("Computer move: " + getMoveByIndex(programMoveIndex));
                         System.out.println(getWinner(moveNum - 1));
                         System.out.println("HMAC-key: " + getHmac_key());
-                        System.out.println("\n\tNew game");
+                        return;
                     }
                     catch (NumberFormatException ignored) {}
             }
@@ -159,6 +157,8 @@ public class Game {
             System.out.println("Example:\njava -jar Task3_game.jar rock paper scissors");
             return;
         }
+        game.runKeyGeneration();
+        System.out.println("HMAC: " + game.getHmac());
         game.runMenu();
     }
 }
